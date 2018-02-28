@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PORT=$((UID + 61240))
+TIMELIMIT=`squeue -hj ${SLURM_JOB_ID} -o '%l'`
+echo "Will launch TensorBoard on ${HOSTNAME}:${PORT} for ${TIMELIMIT}"
+echo "Run the following command on your computer to access it:"
+echo "  ssh -NL 9998:localhost:${PORT} ${HOSTNAME}"
+echo "Now connect to 'localhost:9998' on your computer's browser."
+
+exec tensorboard --port ${PORT} --logdir "$1"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PORT=$((UID + 61239))
+TIMELIMIT=`squeue -hj ${SLURM_JOB_ID} -o '%l'`
+echo "Will launch notebook server on ${HOSTNAME}:${PORT} for ${TIMELIMIT}"
+echo "Run the following command on your computer to access it:"
+echo "  ssh -NL 9999:localhost:${PORT} ${HOSTNAME}"
+echo "Now connect to 'localhost:9999' on your computer's browser."
+
+export JUPYTER_RUNTIME_DIR=${HOME}/.jupyter/tmp
+exec jupyter notebook --port=${PORT} --no-browser --ip=0.0.0.0
