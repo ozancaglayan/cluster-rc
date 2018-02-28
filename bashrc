@@ -3,25 +3,49 @@ if [ ! -z $SLURM_JOB_ID ]; then
   PS1='(`squeue -hj $SLURM_JOB_ID -o "%L"` left) '$PS1
 fi
 
-slcpu() {
-  srun -n1 --time 05:00:00 --mem 4G $@ --pty /bin/bash
+slc() {
+  # slc: SLURM CPU
+  # Give a shell for 5 hours, 4GB RAM and 1 Core (any node)
+  srun -n1 --time 05:00:00 --mem 4G $@ --pty $SHELL
 }
 
-slh() {
+slg() {
+  # slg: SLURM GPU
+  # Give a shell for 5 hours, 4GB RAM, 1 GPU and 1 Core (any node)
+  srun -n1 --time 05:00:00 --mem 4G -p gpu --gres gpu:1 $@ --pty $SHELL
+}
+
+slcm() {
+  # slcm: SLURM CPU MACHINE (you should give the machine name)
+  # Give a shell for 5 hours, 4GB RAM and 1 Core from a specific node
+  # Example: slcm cpu01
+  #          slcm gpu05
+  #          slcm gpu05 --time 02:00:00 --mem 10G (override defaults)
   MACH=$1
   shift 1
-  srun -p gpu,cpu -w $MACH -n1 --time 05:00:00 --mem 4G $@ --pty /bin/bash
+  srun -n1 --time 05:00:00 --mem 4G -w $MACH -p cpu,gpu $@ --pty $SHELL
 }
 
-slhg() {
-  if [[ $1 =~ ^gpu.* ]]; then
-    MACH=$1
-    shift 1
-    srun -p gpu -w "$MACH" -n1 --gres gpu:1 --time 05:00:00 $@ --pty /bin/bash
+slgm() {
+  # slgm: SLURM GPU MACHINE (you should give the machine name)
+  # Same as slcm but will also allocate 1 GPU
+  # Example: slgm gpu05
+  #          slgm gpu05 --time 02:00:00 --mem 10G (override defaults)
+  MACH=$1
+  shift 1
+  srun -n1 --time 05:00:00 --mem 4G -w $MACH -p gpu --gres gpu:1 $@ --pty $SHELL
+}
+
+sljup() {
+  if [ -z $1 ]; then
+    echo "You need to give gpu or cpu as argument."
   else
-    srun -p gpu -n1 --gres gpu:1 --time 05:00:00 $@ --pty /bin/bash
+    PARTITION=$1
+    shift 1
+    srun -p "$PARTITION" -n 1 $@ ~/.cluster-rc/bin/slurm-jupyter
   fi
 }
+
 
 ###############
 # SINFO aliases
