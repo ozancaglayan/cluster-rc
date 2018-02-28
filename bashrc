@@ -3,6 +3,26 @@ if [ ! -z $SLURM_JOB_ID ]; then
   PS1='(`squeue -hj $SLURM_JOB_ID -o "%L"` left) '$PS1
 fi
 
+slcpu() {
+  srun -n1 --time 05:00:00 --mem 4G $@ --pty /bin/bash
+}
+
+slh() {
+  MACH=$1
+  shift 1
+  srun -p gpu,cpu -w $MACH -n1 --time 05:00:00 --mem 4G $@ --pty /bin/bash
+}
+
+slhg() {
+  if [[ $1 =~ ^gpu.* ]]; then
+    MACH=$1
+    shift 1
+    srun -p gpu -w "$MACH" -n1 --gres gpu:1 --time 05:00:00 $@ --pty /bin/bash
+  else
+    srun -p gpu -n1 --gres gpu:1 --time 05:00:00 $@ --pty /bin/bash
+  fi
+}
+
 ###############
 # SINFO aliases
 ###############
