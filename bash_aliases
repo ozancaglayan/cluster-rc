@@ -3,22 +3,22 @@
 ###############
 # Detailed sinfo
 alias si="sinfo -o '%8P %10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %20E' -S '-P'"
-# sinfo only on GPU partition
-alias sig="sinfo -p gpu -o '%10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %30E' -S 'T'"
 # sinfo only on CPU partition
 alias sic="sinfo -p cpu -o '%10n %.11T %.4c %.8z %.6m %10l %10L %10O %30E' -S 'T'"
+# sinfo only on GPU partition
+alias sig="sinfo -p gpu -o '%10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %30E' -S 'T'"
 
 ################
 # SQUEUE aliases
 ################
 # Detailed squeue
 alias sq="squeue -Su -o '%8i %10u %20j %4t %5D %20R %15b %3C %7m %11l %11L'"
-# squeue only on GPU partition
-alias sqg="sq -p gpu"
 # squeue only on CPU partition
 alias sqc="squeue -p cpu -Su -o '%8i %10u %20j %4t %5D %20R %3C %7m %11l %11L'"
 # squeue only your jobs
 alias squ="sq -u `id -un`"
+# squeue only on GPU partition
+alias sqg="sq -p gpu"
 
 #######################################################
 # SSTAT alias to get information about your RUNNING job
