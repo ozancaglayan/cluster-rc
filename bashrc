@@ -1,6 +1,6 @@
 # Set prompt string to show time left for srun
 if [ ! -z $SLURM_JOB_ID ]; then
-  PS1='(`squeue -hj $SLURM_JOB_ID -o "%L"` left) \[\033[38;5;167m\][\h] \w\[\033[00m\] \$ '
+  PS1='(`squeue -hj $SLURM_JOB_ID -o "%L"` left) '$PS1
 fi
 
 ###############
