@@ -58,7 +58,7 @@ $CMD <<EOF
 #SBATCH --mail-user=<YOUR EMAIL ADDRESS>@univ-lemans.fr
 
 for i in `seq -s' ' ${N_SEEDS}`; do
-  srun --exclusive --gres gpu:1 -n1 --mem-per-cpu 0 nmtpy train -C $CONF &
+  srun --exclusive --gres ${GPU}:1 -n1 --mem-per-cpu 0 nmtpy train -C $CONF &
   sleep 2
 done
 wait
