@@ -77,7 +77,6 @@ alias sqg="sq -p gpu"
 #######################################################
 alias sst='sstat -a --format=JobID,NTasks,AveCPU,AveCPUFreq,AveRSS,MaxRSS,MaxDiskRead,MaxDiskWrite -j'
 
-
 ###############
 # SACCT aliases
 ###############
@@ -86,3 +85,9 @@ alias sacr='sacct --units=G -s R --format="JobId%10,JobName,ReqMem%6,AllocTRES%3
 alias sac='sacct --units=G --format="Partition,JobId%10,JobName%20,AllocTRES%30,ReqMem%10,MaxRSS,TimeLimit,Elapsed,End,State"'
 alias saca='sacct --units=G -a --format="User,JobId%10,JobName,ReqMem%6,AllocTRES%30,MaxRSS,ExitCode%4,State,Start,End"'
 alias sacf='sacct --units=G -S 00:00:00 -s f,ca,to,nf,dl --format="JobId%10,JobName%20,ReqMem%7,MaxRSS,AllocTres%50,State%20"'
+
+##########
+# SCONTROL
+##########
+# scontrol show job -dd <jobid>
+alias scj='scontrol show job -dd'
