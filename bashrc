@@ -91,3 +91,5 @@ alias sacf='sacct --units=G -S 00:00:00 -s f,ca,to,nf,dl --format="JobId%10,JobN
 ##########
 # scontrol show job -dd <jobid>
 alias scj='scontrol show job -dd'
+# writes batch script to a file for a running job
+alias scwb='scontrol write batch_script'
