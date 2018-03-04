@@ -1,9 +1,20 @@
-Bash Stuff for SLURM
+Bash aliases for SLURM
 ----
 
-Some SLURM goodies:
+## Installation
+
+Just source the file from your `.bashrc`:
+
 ```
-scontrol notify <jobid> <message>
-scontrol update JobId=<job_list>
-  TimeLimit=<timespec>
+echo source `realpath bashrc` >> ~/.bashrc
 ```
+
+## Features
+
+Assumes two SLURM partitions available: cpu and gpu.
+
+ - Sets `$PS1` for `srun` sessions to show remaining `TimeLimit`.
+ - `sinfo` aliases:
+  - `si`: `sinfo` replacement
+  - `sic`: `si` for CPU partition
+  - `sig`: `si` for GPU partition
