@@ -75,16 +75,22 @@ alias sqg="sq -p gpu"
 #     OR sst <jobid>.batch (if you use SBATCH and do
 #                           not use SRUN inside)
 #######################################################
-alias sst='sstat -a --format=JobID,NTasks,AveCPU,AveCPUFreq,AveRSS,MaxRSS,MaxDiskRead,MaxDiskWrite -j'
+alias sst='sstat -a --format=JobID,NTasks,AveCPU,AveRSS,MaxRSS,MaxDiskRead,MaxDiskWrite -j'
 
 ###############
 # SACCT aliases
 ###############
-# Show my currently running jobs
-alias sacr='sacct --units=G -s R --format="JobId%10,JobName,ReqMem%6,AllocTRES%35,MaxRSS,Start,End"'
-alias sac='sacct --units=G --format="Partition,JobId%10,JobName%20,AllocTRES%30,ReqMem%10,MaxRSS,TimeLimit,Elapsed,End,State"'
-alias saca='sacct --units=G -a --format="User,JobId%10,JobName,ReqMem%6,AllocTRES%30,MaxRSS,ExitCode%4,State,Start,End"'
-alias sacf='sacct --units=G -S 00:00:00 -s f,ca,to,nf,dl --format="JobId%10,JobName%20,ReqMem%7,MaxRSS,AllocTres%50,State%20"'
+# All jobs in last day
+alias sac='sacct --units=G --format="JobId%8,JobName%8,NCPUS%4,NodeList,AllocGRES,ReqMem,MaxRSS,State,Elapsed"'
+# Failed jobs in last day
+alias sacf='sac -S 00:00:00 -s f,ca,to,nf,dl'
+# Running jobs in last day
+alias sacr='sac -s R'
+
+#################
+# SREPORT aliases
+#################
+alias sreu='sreport user top -t HourPer Format=Login%15,Used'
 
 ##########
 # SCONTROL
