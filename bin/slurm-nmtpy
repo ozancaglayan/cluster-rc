@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# A script generating a SLURM batch script that is then given to sbatch
+# automatically.
+
 CMD="sbatch"
 GPU="gpu"
 DRY=0
@@ -45,6 +48,7 @@ else
   CMD="cat"
 fi
 
+# Call sbatch
 $CMD <<EOF
 #!/bin/bash
 #SBATCH -p gpu
