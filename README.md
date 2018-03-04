@@ -11,10 +11,9 @@ echo source `realpath bashrc` >> ~/.bashrc
 
 ## Features
 
-Assumes two SLURM partitions available: `cpu` and `gpu`.
-
+ - Assumes two SLURM partitions available: `cpu` and `gpu`.
  - Extends `PS1` for `srun` sessions to show remaining `TimeLimit`.
- - `sinfo` aliases:
-    - `si`: `sinfo` replacement
-    - `sic`: `si` for CPU partition
-    - `sig`: `si` for GPU partition
+
+### Aliases
+
+### Scripts
