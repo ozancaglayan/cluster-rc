@@ -51,6 +51,7 @@ fi
 # Call sbatch
 $CMD <<EOF
 #!/bin/bash
+#SBATCH -N 1
 #SBATCH -p gpu
 #SBATCH --gres ${GPU}:${N_SEEDS}
 #SBATCH --ntasks ${N_SEEDS}
@@ -61,7 +62,8 @@ $CMD <<EOF
 #SBATCH --mail-type=END,FAIL,TIME_LIMIT_90
 #SBATCH --mail-user=<YOUR EMAIL ADDRESS>@univ-lemans.fr
 
-for i in `seq -s' ' ${N_SEEDS}`; do
+for i in {1..${N_SEEDS}}; do
+  # At each iteration, consume one task+gpu from the allocation pool
   srun --exclusive --gres ${GPU}:1 -n1 --mem-per-cpu 0 nmtpy train -C $CONF &
   sleep 2
 done
