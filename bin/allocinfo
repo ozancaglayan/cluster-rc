@@ -1,0 +1,5 @@
+#!/bin/bash
+MEM=`cat /sys/fs/cgroup/memory/slurm/uid_${UID}/job_${SLURM_JOB_ID}/step_${SLURM_STEPID}/memory.limit_in_bytes | \
+  awk '{ mem = $1 / 1024 / 1024 ; print mem "MB" }'`
+CPUS=`taskset -cap $$ | cut -d':' -f2`
+echo "`date +%H:%M:%S` - PID=$$,JOB=${SLURM_JOB_ID}.${SLURM_STEP_ID}, node=`hostname`, cpus=${CPUS}, mem=${MEM}"
