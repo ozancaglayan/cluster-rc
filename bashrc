@@ -3,29 +3,6 @@ if [ ! -z $SLURM_JOB_ID ]; then
   PS1='(`squeue -hj $SLURM_JOB_ID -o "%L"` left) '$PS1
 fi
 
-slc() {
-  # slc: SLURM CPU
-  # Give a shell for 5 hours, 4GB RAM and 1 Core (any node)
-  srun -n1 --time 05:00:00 --mem 4G $@ --pty $SHELL
-}
-
-slg() {
-  # slg: SLURM GPU
-  # Give a shell for 5 hours, 4GB RAM, 1 GPU and 1 Core (any node)
-  srun -n1 --time 05:00:00 --mem 4G -p gpu --gres gpu:1 $@ --pty $SHELL
-}
-
-sljup() {
-  if [ -z $1 ]; then
-    echo "You need to give gpu or cpu as argument."
-  else
-    PARTITION=$1
-    shift 1
-    srun -p "$PARTITION" -n 1 $@ ~/.cluster-rc/bin/slurm-jupyter
-  fi
-}
-
-
 ###############
 # SINFO aliases
 ###############
