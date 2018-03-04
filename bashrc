@@ -34,7 +34,7 @@ alias si="sinfo -o '%8P %10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %20E' -S '
 # sinfo only on CPU partition
 alias sic="sinfo -p cpu -o '%10n %.11T %.4c %.8z %.6m %10l %10L %10O %30E' -S 'T'"
 # sinfo only on GPU partition
-alias sig="sinfo -p gpu -o '%10n %.11T %.4c %.8z %.6m %12G %10l %10L %10O %30E' -S 'T'"
+alias sig="sinfo -p gpu -o '%10n %.11T %.4c %.8z %.6m %12G %8f %10l %10L %10O %30E' -S 'T'"
 
 ################
 # SQUEUE aliases
