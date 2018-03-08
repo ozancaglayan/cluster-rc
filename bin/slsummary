@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import subprocess
+
+ICMD = ['sinfo', '-h', '-o', '%10n %10c %20m %20G']
+
+
+if __name__ == '__main__':
+    info = subprocess.check_output(ICMD, universal_newlines=True)
+
+    n_nodes = 0
+    n_gpus = 0
+    memory = 0
+    n_cpus = 0
+
+    for line in info.strip().split('\n'):
+        name, n_cpu, mem, gpu = line.strip().split()
+        n_nodes += 1
+        memory += int(mem)
+        n_cpus += int(n_cpu)
+        n_gpus += 0 if gpu == '(null)' else int(gpu.split(':')[-1])
+
+    print('Number of nodes: {}'.format(n_nodes))
+    print('Total memory: {:.2f} TB'.format(memory/(1024**2)))
+    print('Number of CPUs (threads): {} ({})'.format(n_cpus, n_cpus * 2))
+    print('Number of GPUs: {}'.format(n_gpus))
